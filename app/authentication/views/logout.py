@@ -7,7 +7,10 @@ class LogoutView(APIView):
 
 
     def post(self,request):
+     try:
         serializer = LogoutSerializer(data={},context={'request':request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"Message":"Successfully looged out."}, status = status.HTTP_200_OK)
+        return Response({"Message":"Successfully logged out."}, status = status.HTTP_200_OK)
+     except Exception:
+          return Response({"error": "Logout failed."}, status=status.HTTP_400_BAD_REQUEST)
